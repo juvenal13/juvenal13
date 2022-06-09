@@ -2,17 +2,27 @@ const organisationService = require("../services/organisationsService");
 
 const getAllOrganisations = (req, res) => {
   const allOrga = organisationService.getAllOrganisations();
-  res.send("Get all organisations");
+  res.status(201).send({ status: "OK", data: allOrga });
 };
 
 const getOneOrganisation = (req, res) => {
-  const orga = organisationService.getOneOrganisation();
-  res.send("Get an existing organisation");
+  console.log("req:", req.params);
+  //faire des traitements
+  const organisationId = req.params.organisationId;
+  const orga = organisationService.getOneOrganisation(organisationId);
+  res.status(201).send({ status: "OK", data: orga });
 };
 
 const createOrganisation = (req, res) => {
-  const createOrga = organisationService.createNewOrganisation();
-  res.send("Create a new workorganisationout");
+  const { body } = req;
+  if (!body.name) {
+    return;
+  }
+  const newOrganisation = {
+    name: body.name,
+  };
+  const createOrga = organisationService.createNewOrganisation(newOrganisation);
+  res.status(201).send({ status: "OK", data: createOrga });
 };
 
 module.exports = {
