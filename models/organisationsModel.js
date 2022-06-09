@@ -1,3 +1,4 @@
+const Model = require("./model");
 class OrganisationsModel extends Model {
   constructor() {
     super();
@@ -16,3 +17,4 @@ class OrganisationsModel extends Model {
     this.name = _name;
   }
 }
+module.exports = OrganisationsModel;

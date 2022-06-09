@@ -13,7 +13,7 @@ class SensorsModel extends Model {
   organisationId() {
     return this.organisationId;
   }
-  sensortypeId() {
+  sensorTypeId() {
     return this.sensorTypeId;
   }
 
@@ -26,7 +26,7 @@ class SensorsModel extends Model {
   organisationId(_organisationId) {
     this.organisationId = _organisationId;
   }
-  sensortypeId(_sensorTypeId) {
+  sensorTypeId(_sensorTypeId) {
     this.sensorTypeId = _sensorTypeId;
   }
 }

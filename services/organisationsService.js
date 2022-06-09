@@ -1,13 +1,17 @@
+const OrganisationsModel = require("../models/organisationsModel");
+const organisationModel = new OrganisationsModel();
 const getAllOrganisations = () => {
-  return;
+  return organisationModel.all();
 };
 
 const getOneOrganisation = (organisationId) => {
-  return;
+  return organisationModel.findById(organisationId);
 };
 
 const createNewOrganisation = (newOrganisation) => {
-  return;
+  organisationModel.name = newOrganisation.name;
+
+  return organisationModel.create();
 };
 
 module.exports = {

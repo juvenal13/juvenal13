@@ -11,15 +11,15 @@ const getSensorsByOrganisationId = (req, res) => {
 };
 const createsensor = (req, res) => {
   const { body } = req;
-  if (!body.name || !body.organisationId || !body.sensortypeId) {
+  if (!body.name || !body.organisationId || !body.sensorTypeId) {
     return;
   }
   const newSensor = {
     name: body.name,
     organisationId: body.organisationId,
-    sensorTypeId: body.sensortypeId,
+    sensorTypeId: body.sensorTypeId,
   };
-  const createSensor = organisationService.createNewSensor(newSensor);
+  const createSensor = sensorService.createNewSensor(newSensor);
   res.status(201).send({ status: "OK", data: createSensor });
 };
 module.exports = {
