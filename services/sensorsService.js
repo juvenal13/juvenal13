@@ -1,3 +1,5 @@
+const SensorsModel = require("../models/sensorsModel");
+const sensorModel = new SensorsModel();
 const getAllSensors = () => {
   return;
 };

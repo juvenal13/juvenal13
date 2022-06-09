@@ -2,11 +2,11 @@ const getAllOrganisations = () => {
   return;
 };
 
-const getOneOrganisation = () => {
+const getOneOrganisation = (organisationId) => {
   return;
 };
 
-const createNewOrganisation = () => {
+const createNewOrganisation = (newOrganisation) => {
   return;
 };
 

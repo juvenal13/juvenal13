@@ -1,3 +1,4 @@
+const Model = require("./model");
 class SensorsModel extends Model {
   constructor() {
     super();
@@ -29,3 +30,5 @@ class SensorsModel extends Model {
     this.sensorTypeId = _sensorTypeId;
   }
 }
+
+module.exports = SensorsModel;

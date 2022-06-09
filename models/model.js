@@ -4,7 +4,6 @@ class Model {
   constructor() {
     this.class = this.constructor.name;
     this.table = this.class.replace("Model", "").toLowerCase();
-    console.log("model constructor called ", this.table);
   }
 
   async sqlQuery(sql, params) {
@@ -40,6 +39,9 @@ class Model {
       VALUES (${arrayInter})`,
       values
     );
+  }
+  async all() {
+    return this.sqlQuery(`SELECT * FROM ${this.table}`);
   }
 
   async findById($id_value, $id_name = "id") {
