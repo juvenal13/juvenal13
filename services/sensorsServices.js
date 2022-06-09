@@ -2,11 +2,11 @@ const getAllSensors = () => {
   return;
 };
 
-const getOneSensor = () => {
+const getSensorsByOrganisationId = () => {
   return;
 };
 
 module.exports = {
   getAllSensors,
-  getOneSensor,
+  getSensorsByOrganisationId,
 };
