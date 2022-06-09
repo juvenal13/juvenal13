@@ -1,0 +1,27 @@
+{
+  "name": "exonoob",
+  "version": "1.0.0",
+  "description": "exo noob",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juvenal13/juvenal13.git"
+  },
+  "author": "Juvenal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juvenal13/juvenal13/issues"
+  },
+  "homepage": "https://github.com/juvenal13/juvenal13#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3"
+  }
+}
