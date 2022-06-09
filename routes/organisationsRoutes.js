@@ -12,3 +12,4 @@ router.get("/:organisationId", (req, res) => {
 router.post("/", (req, res) => {
   res.send("Create a new organisation");
 });
+module.exports = router;

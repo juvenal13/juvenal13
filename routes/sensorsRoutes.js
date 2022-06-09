@@ -8,3 +8,4 @@ router.get("/", (req, res) => {
 router.get("/:organisationId", (req, res) => {
   res.send("Get an existing sensor");
 });
+module.exports = router;
