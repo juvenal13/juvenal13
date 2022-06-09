@@ -1,9 +1,12 @@
+const sensorService = require("../services/sensorsService");
 const getAllSensors = (req, res) => {
-  res.send("Get all workouts");
+  const allSensors = sensorService.getAllSensors();
+  res.send("Get all sensor");
 };
 
 const getSensorsByOrganisationId = (req, res) => {
-  res.send("Get an existing workout");
+  const sensorInOrg = sensorService.getSensorsByOrganisationId();
+  res.send("Get an existing sensor");
 };
 
 module.exports = {

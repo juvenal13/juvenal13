@@ -1,13 +1,18 @@
+const organisationService = require("../services/organisationsService");
+
 const getAllOrganisations = (req, res) => {
-  res.send("Get all workouts");
+  const allOrga = organisationService.getAllOrganisations();
+  res.send("Get all organisations");
 };
 
 const getOneOrganisation = (req, res) => {
-  res.send("Get an existing workout");
+  const orga = organisationService.getOneOrganisation();
+  res.send("Get an existing organisation");
 };
 
 const createOrganisation = (req, res) => {
-  res.send("Create a new workout");
+  const createOrga = organisationService.createNewOrganisation();
+  res.send("Create a new workorganisationout");
 };
 
 module.exports = {
