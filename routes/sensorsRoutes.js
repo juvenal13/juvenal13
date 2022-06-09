@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const sensorController = require("../controllers/sensorsController");
+router.get("/", sensorController.getAllSensors);
 
-router.get("/", (req, res) => {
-  res.send("Get all sensors");
-});
-
-router.get("/:organisationId", (req, res) => {
-  res.send("Get an existing sensor");
-});
+router.get("/:organisationId", sensorController.getSensorsByOrganisationId);
 module.exports = router;

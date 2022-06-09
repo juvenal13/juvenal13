@@ -1,15 +1,10 @@
 const express = require("express");
+const organisationController = require("../controllers/organisationsController");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Get all organisations");
-});
+router.get("/", organisationController.getAllOrganisations);
 
-router.get("/:organisationId", (req, res) => {
-  res.send("Get an existing organisation");
-});
+router.get("/:organisationId", organisationController.getOneOrganisation);
 
-router.post("/", (req, res) => {
-  res.send("Create a new organisation");
-});
+router.post("/", organisationController.createOrganisation);
 module.exports = router;
