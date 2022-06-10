@@ -74,7 +74,7 @@ class Model {
     );
   }
 
-  async delete($id, $id_name) {
+  async delete($id, $id_name = "id") {
     return await this.sqlQuery(
       `DELETE FROM ${this.table} WHERE ${$id_name} = ?`,
       $id
