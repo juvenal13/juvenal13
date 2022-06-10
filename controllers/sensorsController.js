@@ -1,15 +1,15 @@
 const sensorService = require("../services/sensorsService");
-const getAllSensors = (req, res) => {
+const getAllSensors = async (req, res) => {
   const allSensors = sensorService.getAllSensors();
   res.status(201).send({ status: "OK", data: allSensors });
 };
 
-const getSensorsByOrganisationId = (req, res) => {
+const getSensorsByOrganisationId = async (req, res) => {
   const organisationId = req.params.organisationId;
   const sensorInOrg = sensorService.getSensorsByOrganisationId(organisationId);
   res.status(201).send({ status: "OK", data: sensorInOrg });
 };
-const createsensor = (req, res) => {
+const createsensor = async (req, res) => {
   const { body } = req;
   if (!body.name || !body.organisationId || !body.sensorTypeId) {
     return;
@@ -23,7 +23,7 @@ const createsensor = (req, res) => {
   res.status(201).send({ status: "OK", data: createSensor });
 };
 
-const updateSensor = (req, res) => {
+const updateSensor = async (req, res) => {
   const {
     body,
     params: { sensorId },
@@ -35,15 +35,15 @@ const updateSensor = (req, res) => {
     });
   }
   try {
-    const updatedSensor = sensorService.updateOneSensor(sensorId, body);
+    const updatedSensor = await sensorService.updateOneSensor(sensorId, body);
     res.status(201).send({ status: "OK", data: updatedSensor });
   } catch (error) {
     res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
   }
 };
-const deleteSensor = (req, res) => {
+const deleteSensor = async (req, res) => {
   const {
     params: { sensorId },
   } = req;
@@ -58,8 +58,8 @@ const deleteSensor = (req, res) => {
     res.status(204).send({ status: "OK" });
   } catch (error) {
     res
-      .status(error?.status || 500)
-      .send({ status: "FAILED", data: { error: error?.message || error } });
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
   }
 };
 

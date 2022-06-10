@@ -66,7 +66,7 @@ class Model {
     }
     values.push(this.id);
     // On transforme le tableau "champs" en une chaine de caractères
-    arrayKeys = keys.join(",");
+    let arrayKeys = keys.join(",");
     // On exécute la requête
     return await this.sqlQuery(
       `UPDATE  ${this.table}  SET  ${arrayKeys}  WHERE id = ?`,

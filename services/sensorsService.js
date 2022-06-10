@@ -39,7 +39,7 @@ const updateOneSensor = (sensorId, changes) => {
   }
 };
 
-const deleteOneWorkout = (sensorId) => {
+const deleteOneSensor = (sensorId) => {
   try {
     sensorModel.delete(sensorId);
   } catch (error) {
@@ -50,6 +50,6 @@ module.exports = {
   getAllSensors,
   getSensorsByOrganisationId,
   createNewSensor,
-  deleteOneWorkout,
   updateOneSensor,
+  deleteOneSensor,
 };
