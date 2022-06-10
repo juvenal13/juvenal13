@@ -70,7 +70,7 @@ const deleteSensor = async (req, res) => {
   if (!sensorId) {
     res.status(400).send({
       status: "FAILED",
-      data: { error: "Parameter ':workoutId' can not be empty" },
+      data: { error: "Parameter ':sensorId' can not be empty" },
     });
   }
   try {

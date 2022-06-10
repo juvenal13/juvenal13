@@ -24,7 +24,6 @@ const getOneOrganisation = async (req, res) => {
 };
 
 const createOrganisation = async (req, res) => {
-  console.log("controller orga");
   const { body } = req;
   if (!body.name) {
     return;
