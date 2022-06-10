@@ -1,16 +1,26 @@
 const organisationService = require("../services/organisationsService");
 
 const getAllOrganisations = (req, res) => {
-  const allOrga = organisationService.getAllOrganisations();
-  res.status(201).send({ status: "OK", data: allOrga });
+  try {
+    const allOrga = organisationService.getAllOrganisations();
+    res.status(201).send({ status: "OK", data: allOrga });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 
 const getOneOrganisation = (req, res) => {
-  console.log("req:", req.params);
-  //faire des traitements
   const organisationId = req.params.organisationId;
-  const orga = organisationService.getOneOrganisation(organisationId);
-  res.status(201).send({ status: "OK", data: orga });
+  try {
+    const orga = organisationService.getOneOrganisation(organisationId);
+    res.status(201).send({ status: "OK", data: orga });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 
 const createOrganisation = (req, res) => {
@@ -22,8 +32,15 @@ const createOrganisation = (req, res) => {
   const newOrganisation = {
     name: body.name,
   };
-  const createOrga = organisationService.createNewOrganisation(newOrganisation);
-  res.status(201).send({ status: "OK", data: createOrga });
+  try {
+    const createOrga =
+      organisationService.createNewOrganisation(newOrganisation);
+    res.status(201).send({ status: "OK", data: createOrga });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 
 module.exports = {

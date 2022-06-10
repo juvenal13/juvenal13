@@ -1,13 +1,26 @@
 const sensorService = require("../services/sensorsService");
 const getAllSensors = async (req, res) => {
-  const allSensors = sensorService.getAllSensors();
-  res.status(201).send({ status: "OK", data: allSensors });
+  try {
+    const allSensors = sensorService.getAllSensors();
+    res.status(201).send({ status: "OK", data: allSensors });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 
 const getSensorsByOrganisationId = async (req, res) => {
-  const organisationId = req.params.organisationId;
-  const sensorInOrg = sensorService.getSensorsByOrganisationId(organisationId);
-  res.status(201).send({ status: "OK", data: sensorInOrg });
+  try {
+    const organisationId = req.params.organisationId;
+    const sensorInOrg =
+      sensorService.getSensorsByOrganisationId(organisationId);
+    res.status(201).send({ status: "OK", data: sensorInOrg });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 const createsensor = async (req, res) => {
   const { body } = req;
@@ -19,8 +32,14 @@ const createsensor = async (req, res) => {
     organisationId: body.organisationId,
     sensorTypeId: body.sensorTypeId,
   };
-  const createSensor = sensorService.createNewSensor(newSensor);
-  res.status(201).send({ status: "OK", data: createSensor });
+  try {
+    const createSensor = sensorService.createNewSensor(newSensor);
+    res.status(201).send({ status: "OK", data: createSensor });
+  } catch (error) {
+    res
+      .status(error || 500)
+      .send({ status: "FAILED", data: { error: message || error } });
+  }
 };
 
 const updateSensor = async (req, res) => {
