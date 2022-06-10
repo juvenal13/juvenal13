@@ -1,8 +1,8 @@
 const organisationService = require("../services/organisationsService");
 
-const getAllOrganisations = (req, res) => {
+const getAllOrganisations = async (req, res) => {
   try {
-    const allOrga = organisationService.getAllOrganisations();
+    const allOrga = await organisationService.getAllOrganisations();
     res.status(201).send({ status: "OK", data: allOrga });
   } catch (error) {
     res
@@ -11,10 +11,10 @@ const getAllOrganisations = (req, res) => {
   }
 };
 
-const getOneOrganisation = (req, res) => {
+const getOneOrganisation = async (req, res) => {
   const organisationId = req.params.organisationId;
   try {
-    const orga = organisationService.getOneOrganisation(organisationId);
+    const orga = await organisationService.getOneOrganisation(organisationId);
     res.status(201).send({ status: "OK", data: orga });
   } catch (error) {
     res
@@ -23,7 +23,7 @@ const getOneOrganisation = (req, res) => {
   }
 };
 
-const createOrganisation = (req, res) => {
+const createOrganisation = async (req, res) => {
   console.log("controller orga");
   const { body } = req;
   if (!body.name) {
@@ -33,8 +33,9 @@ const createOrganisation = (req, res) => {
     name: body.name,
   };
   try {
-    const createOrga =
-      organisationService.createNewOrganisation(newOrganisation);
+    const createOrga = await organisationService.createNewOrganisation(
+      newOrganisation
+    );
     res.status(201).send({ status: "OK", data: createOrga });
   } catch (error) {
     res

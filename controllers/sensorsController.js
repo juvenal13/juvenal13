@@ -1,7 +1,7 @@
 const sensorService = require("../services/sensorsService");
 const getAllSensors = async (req, res) => {
   try {
-    const allSensors = sensorService.getAllSensors();
+    const allSensors = await sensorService.getAllSensors();
     res.status(201).send({ status: "OK", data: allSensors });
   } catch (error) {
     res
@@ -11,10 +11,11 @@ const getAllSensors = async (req, res) => {
 };
 
 const getSensorsByOrganisationId = async (req, res) => {
+  const organisationId = req.params.organisationId;
   try {
-    const organisationId = req.params.organisationId;
-    const sensorInOrg =
-      sensorService.getSensorsByOrganisationId(organisationId);
+    const sensorInOrg = await sensorService.getSensorsByOrganisationId(
+      organisationId
+    );
     res.status(201).send({ status: "OK", data: sensorInOrg });
   } catch (error) {
     res
@@ -33,7 +34,7 @@ const createsensor = async (req, res) => {
     sensorTypeId: body.sensorTypeId,
   };
   try {
-    const createSensor = sensorService.createNewSensor(newSensor);
+    const createSensor = await sensorService.createNewSensor(newSensor);
     res.status(201).send({ status: "OK", data: createSensor });
   } catch (error) {
     res
