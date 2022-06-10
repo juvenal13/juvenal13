@@ -44,12 +44,40 @@ class Model {
     return this.sqlQuery(`SELECT * FROM ${this.table}`);
   }
 
-  async findById($id_value, $id_name = "id") {
+  async findById(id_value, id_name = "id") {
     return await this.sqlQuery(
       `SELECT * 
         FROM ${this.table} 
-        WHERE  ${$id_name}  = ? `,
-      [$id_value]
+        WHERE  ${id_name}  = ? `,
+      [id_value]
+    );
+  }
+
+  async update() {
+    let keys = [];
+    let values = [];
+
+    // On boucle pour éclater le tableau
+    for (var [key, value] of Object.entries(this)) {
+      if (value !== null && key !== "class" && key !== "table") {
+        keys.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+    values.push(this.id);
+    // On transforme le tableau "champs" en une chaine de caractères
+    arrayKeys = keys.join(",");
+    // On exécute la requête
+    return await this.sqlQuery(
+      `UPDATE  ${this.table}  SET  ${arrayKeys}  WHERE id = ?`,
+      values
+    );
+  }
+
+  async delete($id, $id_name) {
+    return await this.sqlQuery(
+      `DELETE FROM ${this.table} WHERE ${$id_name} = ?`,
+      $id
     );
   }
 }
