@@ -42,9 +42,52 @@ const createOrganisation = async (req, res) => {
       .send({ status: "FAILED", data: { error: message || error } });
   }
 };
+const updateOrganisation = async (req, res) => {
+  const {
+    body,
+    params: { organisationId },
+  } = req;
+  if (!organisationId) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':sensorId' can not be empty" },
+    });
+  }
+  try {
+    const updatedOrganisation = await organisationService.updateOneOrganisation(
+      organisationId,
+      body
+    );
+    res.status(201).send({ status: "OK", data: updatedOrganisation });
+  } catch (error) {
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
+  }
+};
+const deleteOrganisation = async (req, res) => {
+  const {
+    params: { organisationId },
+  } = req;
 
+  //const organisationId = req.params.organisationId;
+
+  console.log("organisationId:", organisationId);
+  if (!organisationId) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':organisationId' can not be empty" },
+    });
+  }
+  try {
+    await organisationService.deleteOneOrganisation(organisationId);
+    res.status(204).send({ status: "OK" });
+  } catch (error) {
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
+  }
+};
 module.exports = {
   getAllOrganisations,
   getOneOrganisation,
   createOrganisation,
+  deleteOrganisation,
+  updateOrganisation,
 };

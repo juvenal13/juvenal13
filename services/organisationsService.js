@@ -24,9 +24,29 @@ const createNewOrganisation = (newOrganisation) => {
     throw error;
   }
 };
+const updateOneOrganisation = (organisationId, changes) => {
+  try {
+    organisationModel.id = organisationId;
+    organisationModel.name = changes.name;
 
+    const updatedsensor = organisationModel.update();
+    return updatedsensor;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteOneOrganisation = (organisationId) => {
+  try {
+    organisationModel.delete(organisationId);
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   getAllOrganisations,
   getOneOrganisation,
   createNewOrganisation,
+  updateOneOrganisation,
+  deleteOneOrganisation,
 };
