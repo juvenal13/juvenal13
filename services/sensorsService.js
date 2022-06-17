@@ -1,4 +1,6 @@
 const SensorsModel = require("../models/sensorsModel");
+const OrganisationsModel = require("../models/organisationsModel");
+const SensortypesModel = require("../models/sensortypesModel");
 const sensorModel = new SensorsModel();
 const getAllSensors = () => {
   try {
@@ -46,10 +48,44 @@ const deleteOneSensor = (sensorId) => {
     throw error;
   }
 };
+
+const getSensortypeByField = (brand, model) => {
+  const sensortypesModel = new SensortypesModel();
+  sensortypesModel.brand = brand;
+  sensortypesModel.model = model;
+  try {
+    return sensortypesModel.findByCriteria();
+  } catch (error) {
+    throw error;
+  }
+};
+const getOrgaByName = (organisationName) => {
+  const organisationModel = new OrganisationsModel();
+  organisationModel.name = organisationName;
+  try {
+    return organisationModel.findByCriteria();
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getAllSensorsInOrga = (sensorId) => {
+  if (!sensorId) {
+    throw error;
+  }
+  try {
+    return sensorModel.getAllSensorsInOrga(sensorId);
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   getAllSensors,
   getSensorsByOrganisationId,
   createNewSensor,
   updateOneSensor,
   deleteOneSensor,
+  getSensortypeByField,
+  getOrgaByName,
+  getAllSensorsInOrga,
 };

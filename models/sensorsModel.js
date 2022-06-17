@@ -1,9 +1,20 @@
+const SensorsDto = require("../dto/sensorsDto");
 const Model = require("./model");
 class SensorsModel extends Model {
   constructor() {
     super();
   }
+  async getAllSensorsInOrga(sensorId) {
+    const req = await this.sqlQuery(
+      `SELECT s.id, s.name, o.name organisation, st.brand, st.model
+      FROM sensors s JOIN organisations o ON s.organisationId = o.id
+      JOIN sensortypes st ON s.sensorTypeId = st.id
+      WHERE s.id = ?`,
+      sensorId
+    );
 
+    return new SensorsDto(req[0]);
+  }
   id() {
     return this.id;
   }

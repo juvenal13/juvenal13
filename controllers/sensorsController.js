@@ -4,9 +4,7 @@ const getAllSensors = async (req, res) => {
     const allSensors = await sensorService.getAllSensors();
     res.status(201).send({ status: "OK", data: allSensors });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 
@@ -18,9 +16,7 @@ const getSensorsByOrganisationId = async (req, res) => {
     );
     res.status(201).send({ status: "OK", data: sensorInOrg });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 const createsensor = async (req, res) => {
@@ -37,9 +33,7 @@ const createsensor = async (req, res) => {
     const createSensor = await sensorService.createNewSensor(newSensor);
     res.status(201).send({ status: "OK", data: createSensor });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 
@@ -58,9 +52,7 @@ const updateSensor = async (req, res) => {
     const updatedSensor = await sensorService.updateOneSensor(sensorId, body);
     res.status(201).send({ status: "OK", data: updatedSensor });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 const deleteSensor = async (req, res) => {
@@ -77,9 +69,49 @@ const deleteSensor = async (req, res) => {
     sensorService.deleteOneSensor(sensorId);
     res.status(204).send({ status: "OK" });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
+  }
+};
+
+const postSensorInOrga = async (req, res) => {
+  const { body } = req;
+
+  if (!body.name || !body.organisation || !body.brand || !body.model) {
+    return;
+  }
+  try {
+    //recup l'orga
+    const orga = await sensorService.getOrgaByName(body.organisation);
+
+    //recup le sensortype
+    const sensortype = await sensorService.getSensortypeByField(
+      body.brand,
+      body.model
+    );
+    //remplir le sensor
+    const newSensor = {
+      name: body.name,
+      organisationId: orga[0].id,
+      sensorTypeId: sensortype[0].id,
+    };
+    const createSensor = await sensorService.createNewSensor(newSensor);
+    res.status(201).send({ status: "OK", data: createSensor });
+    //creer le sensor
+  } catch (error) {
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
+  }
+};
+
+const getAllSensorsInOrga = async (req, res) => {
+  try {
+    const allSensors = await sensorService.getAllSensors();
+    const allSensorsinOrg = [];
+    for (sensor of allSensors) {
+      allSensorsinOrg.push(await sensorService.getAllSensorsInOrga(sensor.id));
+    }
+    res.status(201).send({ status: "OK", data: allSensorsinOrg });
+  } catch (error) {
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 
@@ -89,4 +121,6 @@ module.exports = {
   createsensor,
   updateSensor,
   deleteSensor,
+  getAllSensorsInOrga,
+  postSensorInOrga,
 };

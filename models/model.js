@@ -53,6 +53,29 @@ class Model {
     );
   }
 
+  async findByCriteria() {
+    let keys = [];
+    let values = [];
+
+    // On boucle pour éclater le tableau
+    for (var [key, value] of Object.entries(this)) {
+      if (value !== null && key !== "class" && key !== "table") {
+        keys.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+
+    // On transforme le tableau "champs" en une chaine de caractères
+    let arrayKeys = keys.join(" AND ");
+
+    // On exécute la requête
+    return await this.sqlQuery(
+      `SELECT * 
+          FROM ${this.table} 
+          WHERE  ${arrayKeys} `,
+      values
+    );
+  }
   async update() {
     let keys = [];
     let values = [];
