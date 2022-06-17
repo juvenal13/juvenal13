@@ -48,6 +48,7 @@ const updateSensor = async (req, res) => {
       data: { error: "Parameter ':sensorId' can not be empty" },
     });
   }
+  console.log("body", body);
   try {
     const updatedSensor = await sensorService.updateOneSensor(sensorId, body);
     res.status(201).send({ status: "OK", data: updatedSensor });

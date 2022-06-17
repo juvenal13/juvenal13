@@ -29,6 +29,7 @@ const createNewSensor = (newSensor) => {
   }
 };
 const updateOneSensor = async (sensorId, changes) => {
+  console.log("changes:", changes);
   const organisationModel = new OrganisationsModel();
   const sensortypesModel = new SensortypesModel();
   sensorModel.id = sensorId;
@@ -39,7 +40,6 @@ const updateOneSensor = async (sensorId, changes) => {
   try {
     // recup le sensor
     const sensor = await sensorModel.findById(sensorId);
-    console.log(sensor);
     organisationModel.id = sensor[0].organisationId;
     sensortypesModel.id = sensor[0].sensorTypeId;
     // modif l'orga

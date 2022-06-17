@@ -6,7 +6,7 @@ class SensorsModel extends Model {
   }
   async getAllSensorsInOrga(sensorId) {
     const req = await this.sqlQuery(
-      `SELECT s.id, s.name, o.name organisation, st.brand, st.model
+      `SELECT s.id, s.name, o.id organisationId, o.name organisation,st.id sensortypeId, st.brand, st.model
       FROM sensors s JOIN organisations o ON s.organisationId = o.id
       JOIN sensortypes st ON s.sensorTypeId = st.id
       WHERE s.id = ?`,

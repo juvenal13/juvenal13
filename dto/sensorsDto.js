@@ -17,6 +17,12 @@ class SensorsDto {
   model() {
     return this.row.model;
   }
+  organisationId() {
+    return this.row.organisationId;
+  }
+  sensortypeId() {
+    return this.row.sensortypeId;
+  }
 }
 
 module.exports = SensorsDto;
