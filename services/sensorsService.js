@@ -28,12 +28,24 @@ const createNewSensor = (newSensor) => {
     throw error;
   }
 };
-const updateOneSensor = (sensorId, changes) => {
+const updateOneSensor = async (sensorId, changes) => {
+  const organisationModel = new OrganisationsModel();
+  const sensortypesModel = new SensortypesModel();
+  sensorModel.id = sensorId;
+  sensorModel.name = changes.name;
+  sensortypesModel.brand = changes.brand;
+  sensortypesModel.model = changes.model;
+  organisationModel.name = changes.organisation;
   try {
-    sensorModel.id = sensorId;
-    sensorModel.name = changes.name;
-    sensorModel.organisationId = changes.organisationId;
-    sensorModel.sensorTypeId = changes.sensorTypeId;
+    // recup le sensor
+    const sensor = await sensorModel.findById(sensorId);
+    console.log(sensor);
+    organisationModel.id = sensor[0].organisationId;
+    sensortypesModel.id = sensor[0].sensorTypeId;
+    // modif l'orga
+    organisationModel.update();
+    // update le sensortype
+    sensortypesModel.update();
     const updatedsensor = sensorModel.update();
     return updatedsensor;
   } catch (error) {
