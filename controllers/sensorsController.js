@@ -14,6 +14,7 @@ const getSensorsByOrganisationId = async (req, res) => {
     const sensorInOrg = await sensorService.getSensorsByOrganisationId(
       organisationId
     );
+
     res.status(201).send({ status: "OK", data: sensorInOrg });
   } catch (error) {
     res.status(error || 500).send({ status: "FAILED", data: { error: error } });
@@ -108,7 +109,7 @@ const getAllSensorsInOrga = async (req, res) => {
     const allSensors = await sensorService.getAllSensors();
     const allSensorsinOrg = [];
     for (sensor of allSensors) {
-      allSensorsinOrg.push(await sensorService.getAllSensorsInOrga(sensor.id));
+      allSensorsinOrg.push(await sensorService.getSensorInOrga(sensor.id));
     }
     res.status(201).send({ status: "OK", data: allSensorsinOrg });
   } catch (error) {

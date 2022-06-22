@@ -5,9 +5,7 @@ const getAllOrganisations = async (req, res) => {
     const allOrga = await organisationService.getAllOrganisations();
     res.status(201).send({ status: "OK", data: allOrga });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 
@@ -17,9 +15,7 @@ const getOneOrganisation = async (req, res) => {
     const orga = await organisationService.getOneOrganisation(organisationId);
     res.status(201).send({ status: "OK", data: orga });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 
@@ -37,9 +33,7 @@ const createOrganisation = async (req, res) => {
     );
     res.status(201).send({ status: "OK", data: createOrga });
   } catch (error) {
-    res
-      .status(error || 500)
-      .send({ status: "FAILED", data: { error: message || error } });
+    res.status(error || 500).send({ status: "FAILED", data: { error: error } });
   }
 };
 const updateOrganisation = async (req, res) => {
@@ -69,8 +63,6 @@ const deleteOrganisation = async (req, res) => {
   } = req;
 
   //const organisationId = req.params.organisationId;
-
-  console.log("organisationId:", organisationId);
   if (!organisationId) {
     res.status(400).send({
       status: "FAILED",

@@ -1,10 +1,11 @@
+const sensorandstDto = require("../dto/sensorandstDto");
 const SensorsDto = require("../dto/sensorsDto");
 const Model = require("./model");
 class SensorsModel extends Model {
   constructor() {
     super();
   }
-  async getAllSensorsInOrga(sensorId) {
+  async getSensorInOrga(sensorId) {
     const req = await this.sqlQuery(
       `SELECT s.id, s.name, o.id organisationId, o.name organisation,st.id sensortypeId, st.brand, st.model
       FROM sensors s JOIN organisations o ON s.organisationId = o.id
@@ -12,8 +13,16 @@ class SensorsModel extends Model {
       WHERE s.id = ?`,
       sensorId
     );
-
-    return new SensorsDto(req[0]);
+    return new SensorsDto(req[0]).row;
+  }
+  async getSensorAndStByorgId(orgId) {
+    const rows = await this.sqlQuery(
+      `SELECT s.id, s.name,st.id sensortypeId, st.brand, st.model
+      FROM sensors s JOIN sensortypes st ON s.sensorTypeId = st.id
+      WHERE s.organisationId = ?`,
+      orgId
+    );
+    return rows.map((row) => new sensorandstDto(row).row);
   }
   id() {
     return this.id;

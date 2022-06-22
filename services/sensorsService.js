@@ -12,7 +12,8 @@ const getAllSensors = () => {
 
 const getSensorsByOrganisationId = (organisationId) => {
   try {
-    return sensorModel.findById(organisationId, "organisationId");
+    // return sensorModel.findById(organisationId, "organisationId");
+    return sensorModel.getSensorAndStByorgId(organisationId);
   } catch (error) {
     throw error;
   }
@@ -81,12 +82,12 @@ const getOrgaByName = (organisationName) => {
   }
 };
 
-const getAllSensorsInOrga = (sensorId) => {
+const getSensorInOrga = (sensorId) => {
   if (!sensorId) {
     throw error;
   }
   try {
-    return sensorModel.getAllSensorsInOrga(sensorId);
+    return sensorModel.getSensorInOrga(sensorId);
   } catch (error) {
     throw error;
   }
@@ -99,5 +100,5 @@ module.exports = {
   deleteOneSensor,
   getSensortypeByField,
   getOrgaByName,
-  getAllSensorsInOrga,
+  getSensorInOrga,
 };
